@@ -1,0 +1,9 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../PED2_Exp2_RTL.srcs/sources_1/new/Controle_Bl.vhd" \
+"../../../../PED2_Exp2_RTL.srcs/sources_1/imports/new/divisor_clk.vhd" \
+"../../../../PED2_Exp2_RTL.srcs/sources_1/imports/Ped2/operacional.vhd" \
+"../../../../PED2_Exp2_RTL.srcs/sources_1/new/Top_modu.vhd" \
+
+# Do not sort compile order
+nosort

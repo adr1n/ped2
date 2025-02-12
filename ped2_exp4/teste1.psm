@@ -1,0 +1,33 @@
+;portas:
+x1 DSIN $01
+x2 DSIN $02
+leds DSOUT $03
+
+;nomeando registradores:
+reg1 EQU s1
+reg2 EQU s2
+EINT
+
+espera: JUMP espera
+
+start:
+    IN reg1, x1
+    IN reg2, x2
+
+isr1:
+    LOAD reg1, x1
+    LOAD reg2, x2
+    SL0 reg1
+    ADD reg1, x1
+    SR0 reg1
+    SR0 reg1
+    SR0 reg1 ; dividindo o numero por 0.1875, tendo em vista o ultimo digito de matricula de André é 2
+    SR0 reg2
+    SR0 reg2 ; dividindo por 0.25, tendo em vista que o ultimo digito da matricula de Otávio é 3
+    ADD reg1, reg2
+    OUT reg1, leds
+    RETI
+
+
+ORG $3FF
+    JUMP start

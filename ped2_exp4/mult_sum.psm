@@ -1,0 +1,58 @@
+j EQU s0
+i EQU s1 ; contador
+regx1 EQU s3
+regx2 EQU s4
+regMS EQU s5
+regLS EQU s6
+MSmult_x1 EQU s7
+LSmult_x1 EQU s8
+MSmult_x2 EQU s9
+LSmult_x2 EQU sA
+rega1 EQU sB
+rega2 EQU sC
+x1 DSIN 01
+x2 DSIN 02
+
+MSprod DSOUT 03
+LSprod DSOUT 04
+
+forever:
+        IN regx1, x1
+        IN regx2, x2
+        CALL mult_soft_x1
+        CALL mult_soft_x2
+        ADD LSmult_x1, LSmult_x2
+        ADDC MSmult_x1, MSmult_x2
+        OUT MSmult_x1, MSprod
+        OUT LSmult_x1, LSprod
+        JUMP forever
+mult_soft_x1:
+            LOAD MSmult_x1, 00 ; zerando tudo
+            LOAD rega1, 03
+            LOAD i, 08
+mult_loop_x1:
+            SR0 rega1 ; deslocando a direita para ter o carry do LSprod
+            JUMP nc, shift_prod_x1
+            ADD MSmult_x1, regx1
+shift_prod_x1:
+           SRA MSmult_x1
+           SRA LSmult_x1
+           SUB i, 01
+           JUMP nz, mult_loop_x1
+           RET
+
+mult_soft_x2:
+            LOAD MSmult_x2, 00 ; zerando tudo
+            LOAD rega2, 03
+            LOAD j, 08
+mult_loop_x2:
+            SR0 rega2 ; deslocando a direita para ter o carry do LSprod
+            JUMP nc, shift_prod_x2
+            ADD MSmult_x2, regx2
+shift_prod_x2:
+           SRA MSmult_x2
+           SRA LSmult_x2
+           SUB j, 01
+           JUMP nz, mult_loop_x2
+           RET
+

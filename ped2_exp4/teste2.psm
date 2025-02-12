@@ -1,0 +1,26 @@
+; Registros:
+; s0 e s1 são os números a serem multiplicados
+; s2 e s3 são usados para armazenar o resultado
+
+
+num1 DSIN $01
+num2 DSIN $02
+lsb DSOUT $03
+msb DSOUT $04
+
+Inicio:
+LOAD s2, 0     ; Inicializar o resultado com 0
+IN s0, num1  ; Carregar o primeiro número em s0
+IN s1, num2  ; Carregar o segundo número em s2
+
+Multiplicar:
+ADD s2, s0 ; Adicionar o primeiro número ao resultado
+ADDC s3, 00 ; Soma o carry
+SUB s1, $01 ; Decrementa o segundo número
+JUMP NZ, Multiplicar ; Repetir até que o segundo número seja 0
+
+Fim:
+OUT s2, lsb
+OUT s3, msb
+; O resultado da multiplicação está agora em s2
+

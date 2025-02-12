@@ -1,0 +1,16 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Thu Oct 26 21:18:14 2023
+# Process ID: 12680
+# Current directory: C:/Users/andre/Downloads/Ped2_Exp1_FSMs/Ped2_Exp1_FSMs
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent13804 C:\Users\andre\Downloads\Ped2_Exp1_FSMs\Ped2_Exp1_FSMs\Ped2_Exp1_FSMs.xpr
+# Log file: C:/Users/andre/Downloads/Ped2_Exp1_FSMs/Ped2_Exp1_FSMs/vivado.log
+# Journal file: C:/Users/andre/Downloads/Ped2_Exp1_FSMs/Ped2_Exp1_FSMs\vivado.jou
+# Running On: DESKTOP-8GM2R40, OS: Windows, CPU Frequency: 1497 MHz, CPU Physical cores: 4, Host memory: 8031 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/andre/Downloads/Ped2_Exp1_FSMs/Ped2_Exp1_FSMs/Ped2_Exp1_FSMs.xpr
+update_compile_order -fileset sources_1

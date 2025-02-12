@@ -1,0 +1,23 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Sun Nov 26 23:27:17 2023
+# Process ID: 2412
+# Current directory: C:/Users/andre/Downloads/ped2_exp3_datasheet/ped2_exp3
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent6784 C:\Users\andre\Downloads\ped2_exp3_datasheet\ped2_exp3\ped2_exp3.xpr
+# Log file: C:/Users/andre/Downloads/ped2_exp3_datasheet/ped2_exp3/vivado.log
+# Journal file: C:/Users/andre/Downloads/ped2_exp3_datasheet/ped2_exp3\vivado.jou
+# Running On: DESKTOP-8GM2R40, OS: Windows, CPU Frequency: 1497 MHz, CPU Physical cores: 4, Host memory: 8031 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/andre/Downloads/ped2_exp3_datasheet/ped2_exp3/ped2_exp3.xpr
+open_run impl_1
+update_compile_order -fileset sources_1
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1
+close_design
+synth_design -rtl -rtl_skip_mlo -name rtl_1
+write_schematic -format pdf -orientation landscape C:/Users/andre/Downloads/ped2_exp3_datasheet/ped2_exp3/schematic.pdf
+open_run synth_1 -name synth_1
+report_utilization -name utilization_1

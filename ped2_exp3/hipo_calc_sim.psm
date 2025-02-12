@@ -1,0 +1,68 @@
+;portas:
+swa DSIN $01
+swb DSIN $02
+leds DSOUT $03
+;
+;nomeando registradores:
+x  EQU s1 
+y  EQU s2 
+t3 EQU s3 
+t4 EQU s4 
+t5 EQU s5 
+t6 EQU s6 
+t7 EQU s7 
+a  EQU sE 
+b  EQU sF
+EINT
+
+espera:
+    JUMP espera
+
+start:
+    IN a, swa
+    IN b, swb  
+
+comparar_a_b:
+    COMP a, b
+    JUMP c, b_maior
+
+    a_maior:
+        LOAD x, a
+        LOAD y, b
+        JUMP operacoes
+    
+    b_maior:
+        LOAD x, b
+        LOAD y, a
+        
+
+operacoes:
+    LOAD t3, x
+    LOAD t5, x
+    LOAD t4, y
+    ;
+    SR0 t3 
+    SR0 t3
+    SR0 t3
+    ;
+    SR0 t4
+    LOAD t6, t4
+    ;
+    SUB t5, t3
+    ;
+    ADD t6, t5
+
+comparar_t6_x:
+    COMP t6, x
+        JUMP c, x_maior
+            LOAD t7, t6
+        JUMP saida
+        x_maior:
+            LOAD t7, x
+
+saida:
+    OUT t7, leds
+    RETI ENABLE
+
+ORG $3ff
+    JUMP start

@@ -1,0 +1,88 @@
+;portas:
+CONSTANT swa, 01 
+CONSTANT swb, 02
+CONSTANT leds, 03
+;
+;nomeando registradores:
+NAMEREG s1, x 
+NAMEREG s2, y
+NAMEREG s3, t3
+NAMEREG s4, t4
+NAMEREG s5, t5
+NAMEREG s6, t6
+NAMEREG s7, t7
+NAMEREG sE, a
+NAMEREG sF, b
+
+receber:
+    INPUT a, swa
+    INPUT b, swb
+    
+espera:
+    JUMP espera
+
+start:
+    COMPARE a, b
+    JUMP c, else_branch
+
+    then_branch:
+        LOAD x, a
+        LOAD t3, x
+        LOAD y, b
+        LOAD t4, y
+        LOAD t5, x
+        ;
+        SR0 t3 
+        SR0 t3
+        SR0 t3
+        ;
+        SR0 t4
+        LOAD t6, t4
+        ;
+        SUB t5, t3
+        ;
+        ADD t6, t5
+        ;
+        COMPARE t6, x
+        JUMP c, else_branch2
+            LOAD t7, t6
+        JUMP saida
+        else_branch2:
+            LOAD t7, x
+            JUMP saida
+
+    JUMP if_done
+    else_branch:
+        LOAD x, b
+        LOAD t3, x
+        LOAD y, a
+        LOAD t4, y
+        LOAD t5, x
+        ;
+        SR0 t3 
+        SR0 t3
+        SR0 t3
+        SR0 t3
+        ;
+        SR0 t4
+        LOAD t6, t4
+        ;
+        SUB t5, t3
+        ;
+        ADD t6, t5
+        ;
+        COMPARE t6, x
+        JUMP c, else_branch3
+            LOAD t7, t6
+        JUMP saida
+        else_branch3:
+            LOAD t7, x
+;       
+    saida:
+        output leds, t7
+    
+    if_done:
+        JUMP recebe
+
+adress 3ff
+    JUMP start

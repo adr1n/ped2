@@ -1,0 +1,90 @@
+i EQU s0 ; contador
+regx1 EQU s1
+regx2 EQU s2
+regMS EQU s3
+regLS EQU s4
+MSmult_x1 EQU s5
+LSmult_x1 EQU s6
+MSmult_x2 EQU s7
+LSmult_x2 EQU s8
+rega1 EQU s9
+rega2 EQU sA
+reginterrupts1 EQU sB
+reginterrupts2 EQU sC
+x1 DSIN 01
+x2 DSIN 02
+MSprod DSOUT 03
+LSprod DSOUT 04
+interrupts1 DSIN 05
+interrupts2 DSIN 06
+EINT
+
+espera: JUMP espera
+	
+isr:
+		IN reginterrupts1, interrupts1
+		COMP reginterrupts1, 01
+		JUMP z, isr1
+		IN reginterrupts2, interrupts2
+		COMP reginterrupts2, 01
+		JUMP z, isr2
+		RETI ENABLE
+isr1:
+        IN regx1, x1
+        IN regx2, x2
+        call mult_soft_x1
+        call mult_soft_x2
+		add LSmult_x1, LSmult_x2
+        addc MSmult_x1, MSmult_x2
+        OUT MSmult_x1, MSprod
+        OUT LSmult_x1, LSprod
+        RETI ENABLE
+mult_soft_x1:
+            load MSmult_x1, 00 ; zerando tudo
+            load rega1, 03
+            load i, 08
+mult_loop_x1:
+            SR0 rega1 ; deslocando a direita para ter o carry do LSprod
+            JUMP nc, shift_prod_x1
+            add MSmult_x1, regx1
+shift_prod_x1:
+           SRA MSmult_x1
+           SRA LSmult_x1
+           SUB i, 01
+           JUMP nz, mult_loop_x1
+           RET
+
+mult_soft_x2:
+            load MSmult_x2, 00 ; zerando tudo
+            load rega2, 04	
+            load i, 08
+mult_loop_x2:
+            SR0 rega2 ; deslocando a direita para ter o carry do LSprod
+            JUMP nc, shift_prod_x2
+            add MSmult_x2, regx2
+shift_prod_x2:
+           SRA MSmult_x2
+           SRA LSmult_x2
+           SUB i, 01
+           JUMP nz, mult_loop_x2
+           RET
+
+ORG $0B0
+isr2:
+	COMP MSmult_x1, 32
+	JUMP c, menor_que_50
+	SL0 LSmult_x1
+	SLA MSmult_x1
+	OUT MSmult_x1, MSprod
+    OUT LSmult_x1, LSprod
+	RETI ENABLE
+
+menor_que_50:
+	SR0 MSmult_x1
+	SRA LSmult_x1
+	OUT MSmult_x1, MSprod
+    OUT LSmult_x1, LSprod
+	RETI ENABLE
+
+ORG $3FF
+ 	 jump isr						;set interrupt vector

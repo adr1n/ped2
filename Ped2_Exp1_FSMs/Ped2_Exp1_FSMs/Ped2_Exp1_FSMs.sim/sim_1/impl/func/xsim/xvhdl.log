@@ -1,0 +1,5 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/oabin/Projetos Vivado/Ped2/Ped2_Exp1_FSMs/Ped2_Exp1_FSMs.sim/sim_1/impl/func/xsim/Top_module_func_impl.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Clock05'
+INFO: [VRFC 10-3107] analyzing entity 'FSM1_Matricula_Otavio'
+INFO: [VRFC 10-3107] analyzing entity 'FSM2_Matricula_Andre'
+INFO: [VRFC 10-3107] analyzing entity 'Top_module'

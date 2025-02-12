@@ -1,0 +1,102 @@
+;H = int hipo(int a, int b) {
+;x = max(a, b)
+;y = min(a, b)
+;t3 = x >> 3
+;t4 = y >> 1
+;t5 = x – t3
+;t6 = t4 + t5
+;t7 = max(t6, x)
+;return t7}
+
+
+
+;portas:
+swa DSIN $01
+swb DSIN $02
+leds DSOUT $03
+;
+;nomeando registradores:
+x  EQU s1 
+y  EQU s2 
+t3 EQU s3 
+t4 EQU s4 
+t5 EQU s5 
+t6 EQU s6 
+t7 EQU s7 
+a  EQU sE 
+b  EQU sF
+EINT
+
+espera:
+    JUMP espera
+
+recebe:
+    IN a, swa
+    IN b, swb
+    
+start:
+    COMP a, b
+    JUMP c, else_branch
+
+    then_branch:
+        LOAD x, a
+        LOAD t3, x
+        LOAD y, b
+        LOAD t4, y
+        LOAD t5, x
+        ;
+        SR0 t3 
+        SR0 t3
+        SR0 t3
+        SR0 t3
+        ;
+        SR0 t4
+        LOAD t6, t4
+        ;
+        SUB t5, t3
+        ;
+        ADD t6, t5
+        ;
+        COMP t6, x
+        JUMP c, else_branch2
+            LOAD t7, t6
+        JUMP if_done2
+        else_branch2:
+            LOAD t7, x
+        if_done2:
+            OUT t7, leds
+
+    JUMP if_done
+    else_branch:
+        LOAD x, b
+        LOAD t3, x
+        LOAD y, a
+        LOAD t4, y
+        LOAD t5, x
+        ;
+        SR0 t3 
+        SR0 t3
+        SR0 t3
+        SR0 t3
+        ;
+        SR0 t4
+        LOAD t6, t4
+        ;
+        SUB t5, t3
+        ;
+        ADD t6, t5
+        ;
+        COMP t6, x
+        JUMP c, else_branch3
+            LOAD t7, t6
+        JUMP if_done3
+        else_branch3:
+            LOAD t7, x
+        if_done3:
+            OUT t7, leds
+    
+    if_done:
+        JUMP recebe
+
+ORG $3ff
+    JUMP recebe

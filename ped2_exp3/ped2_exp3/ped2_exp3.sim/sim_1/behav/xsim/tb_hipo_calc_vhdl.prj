@@ -1,0 +1,6 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../ped2_exp3.srcs/sim_1/new/tb_hipo_calc.vhd" \
+
+# Do not sort compile order
+nosort

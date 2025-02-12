@@ -1,0 +1,70 @@
+;portas:
+CONSTANT swa, 01 
+CONSTANT swb, 02
+CONSTANT leds, 03
+;
+;nomeando registradores:
+NAMEREG s1, x 
+NAMEREG s2, y
+NAMEREG s3, t3
+NAMEREG s4, t4
+NAMEREG s5, t5
+NAMEREG s6, t6
+NAMEREG s7, t7
+NAMEREG sE, regA
+NAMEREG sF, regB
+ENABLE INTERRUPT
+
+espera:
+    JUMP espera
+
+start:
+    INPUT regA, swa
+    INPUT regB, swb
+    LOAD s8, 10  
+
+comparar_a_b:
+    COMPARE regA, regB
+    JUMP c, b_maior
+
+    a_maior:
+        LOAD x, regA
+        LOAD y, regB
+        JUMP operacoes
+    
+    b_maior:
+        LOAD x, regB
+        LOAD y, regA
+        
+
+operacoes:
+    LOAD t3, x
+    LOAD t5, x
+    LOAD t4, y
+    ;
+    SR0 t3 
+    SR0 t3
+    SR0 t4
+    SR0 t3
+    ;
+    LOAD t6, t4
+    ;
+    SUB t5, t3
+    ADD s8, 40
+    ;
+    ADD t6, t5
+
+comparar_t6_x:
+    COMPARE t6, x
+        JUMP c, x_maior
+            LOAD t7, t6
+        JUMP saida
+        x_maior:
+            LOAD t7, x
+
+saida:
+    OUTPUT t7, leds
+    RETURNI ENABLE
+
+ADDRESS 3FF
+    JUMP start
